@@ -310,7 +310,6 @@ class MyForm(QtWidgets.QMainWindow):
         else:
             print('folder existed')
 
-
     def read_file(self):
         fileName_choose = self.path + '/' + self.ui.file_Box.currentText()
         try:
@@ -327,23 +326,6 @@ class MyForm(QtWidgets.QMainWindow):
                     self.lineEdit_list[i].setText(str(self.argus[self.lineEdit_list[i].objectName()]))
         except:
             QMessageBox.information(None, '参数', "参数读取有误,请查看文件参数", QMessageBox.Ok)
-#        fileName_choose, filetype = QFileDialog.getOpenFileName(self,  
-#                                    "选取文件",  
-#                                    self.path, # 起始路径 
-#                                    "All Files (*);;Json Files (*.json)") 
-#        if fileName_choose == "":
-#            return
-#        else:
-#            with open(fileName_choose, 'r') as infile:
-#                self.argus = load(infile)
-#            try:
-#                for i in range(0,24):
-#                    if self.argus[self.lineEdit_list[i].objectName()] == '':
-#                        continue
-#                    else:
-#                        self.lineEdit_list[i].setText(str(self.argus[self.lineEdit_list[i].objectName()]))
-#            except:
-#                QMessageBox.information(None, '参数', "参数读取有误,请查看文件参数", QMessageBox.Ok)
 
     def write_file(self):
         for i in range(0,24):
@@ -422,7 +404,8 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(True)
     w = MyForm()
-    app.setWindowIcon(QIcon("./icon.jpg"))
+    # 由于120行处更改了工作目录,因而需要返回上一级寻找
+    app.setWindowIcon(QIcon("../icon/icon.jpg"))
     w.show()
     sys.exit(app.exec_())
 
